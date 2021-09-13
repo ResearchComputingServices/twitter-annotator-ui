@@ -1,0 +1,65 @@
+.App {
+  /* height: 60vw; */
+  text-align: center;
+  display: grid;
+  justify-content: center;
+  margin-top: 4%;
+}
+
+.title {
+  margin-top: 10px;
+}
+.test_title {
+  text-align: left;
+}
+
+.tweetembed {
+  margin-left: 10%;
+  display: grid;
+  grid-template-columns: 90% 50%;
+  justify-items: left;
+  align-items: center;
+}
+
+
+.content {
+  width: 40vw;
+  justify-items: center;
+  border: 1px solid lightgray;
+}
+
+.radio,
+.checkbox {
+  margin-left: 10%;
+  display: grid;
+  grid-template-columns: 100%;
+  justify-items: left;
+  align-items: center;
+}
+
+.ant-form-item{
+  display: grid;
+  grid-template-columns: 10%;
+}
+
+
+.textbox {
+  margin: 5% 10%;
+}
+textarea {
+  height: 500px;
+}
+
+.buttons {
+  margin: 5% 10%;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  column-gap: 4%;
+}
+.markcontext {
+  height: 50px;
+  border: 0.5px solid lightgray;
+}
+.markcontext:hover {
+  border: 0.5px solid 	#87CEFA;
+}

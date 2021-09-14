@@ -17,8 +17,14 @@ function BottomButtons({ selected_text, content, form, set_content, set_selected
         form.validateFields().then(values => {
 
             console.log(values);
-            if (content?.id) {
-                Axios.post('/api/highlight', { id: content.id, selected_text, values }).then(data => {
+            console.log(content)
+            //if (content?.id) {
+            if (values) {
+                //Axios.post('/api/highlight', { id: content.id, selected_text, values }).then(data => {
+                  //  message.success(data.statusText)
+                //})
+
+                 Axios.post('/api/highlight', { values }).then(data => {
                     message.success(data.statusText)
                 })
 
@@ -29,9 +35,11 @@ function BottomButtons({ selected_text, content, form, set_content, set_selected
     }
     return (
         <div className="buttons">
-            <Button onClick={clear_text}>Clear</Button>
-            <Button onClick={save}>Save</Button>
+            <Button onClick={clear_text}>Clear Question</Button>
+            
             <Button onClick={clear_all}>Clear All</Button>
+
+            <Button onClick={save}>Save</Button>
         </div>
     )
 }

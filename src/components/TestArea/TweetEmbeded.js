@@ -17,7 +17,7 @@ function TweetEmbeded(set_id) {
           {/*
           <TweetEmbed className="tweetembed" id={currentId} placeholder={'loading'}/>
           */}
-          <TweetEmbed className="tweetembed" id='991104230428733441' placeholder={'loading'}/>
+          <TweetEmbed className="tweetembed" id='1437795046091329548' placeholder={'loading'}/>
         </div>
         )
 }

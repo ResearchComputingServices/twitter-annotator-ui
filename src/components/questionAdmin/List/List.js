@@ -7,10 +7,18 @@ import Axios from "axios";
 function List() {
 
     let types = ['Radio Question', 'Checkbox Question', 'Text Question']
-    const col = [{
+    const col = [
+    {
         dataIndex: "id",
         key: 'id',
         title: "id"
+    },
+
+    {
+        dataIndex: "question_number",
+        key: 'question_number',
+        title: "question#",
+        align: 'center'
     },
     {
         dataIndex: "text",
@@ -27,7 +35,7 @@ function List() {
             Axios.put('/api/update_single_question_option_active_only', row).then(res => {
                 //console.log("here");
                 if (res.data === "success") {
-                    message.success('Update Successful!')
+                    message.success('Updated Successfully!')
                     set_update_table(pre => pre + 1)
                 } else {
                     message.error('Update Failed!')
@@ -40,6 +48,7 @@ function List() {
         dataIndex: 'question_type',
         key: 'type',
         title: "type",
+        align: 'center',
         render: (question_type) => <span>{types[question_type]}</span>
     }
     /*

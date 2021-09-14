@@ -13,7 +13,7 @@ function EditModal({ setIsModalVisible, isModalVisible, question, set_update_tab
                 // modify
                 Axios.put('/api/update_single_question_option', values).then(res => {
                     if (res.data === "success") {
-                        message.success('Save Successful!')
+                        message.success('Saved Successfully!')
                         set_update_table(pre => pre + 1)
                     } else {
                         message.error('Save Failed!')
@@ -23,7 +23,7 @@ function EditModal({ setIsModalVisible, isModalVisible, question, set_update_tab
                 // add new data
                 Axios.post('/api/create_single_question_option', values).then(res => {
                     if (res.data === "success") {
-                        message.success('Save Successful!')
+                        message.success('Saved Successfully!')
                         set_update_table(pre => pre + 1)
                     } else {
                         message.error('Save Failed!')

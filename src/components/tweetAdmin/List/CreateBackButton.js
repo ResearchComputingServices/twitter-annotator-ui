@@ -30,9 +30,9 @@ function CreateBackButton({ question, del_data_by_id, set_update_table }) {
     return (
         <div>
             <Space>
-                <Button onClick={() => showEdit({ addnew: true })} >Create</Button>
+                <Button onClick={() => showEdit({ addnew: true })} >Select</Button>
                 <Button onClick={() => showEdit({ addnew: false })} disabled={question?.id ? false : true}>Edit</Button>
-                <Button onClick={handel_delete} disabled={question?.id ? false : true}>Delete</Button>
+                <Button onClick={handel_delete} disabled={question?.id ? false : true}>Assign</Button>
                 <Button onClick={() => history.push('/')}  >Back</Button>
             </Space>
 

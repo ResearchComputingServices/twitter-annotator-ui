@@ -28,6 +28,7 @@ function EditForm({ question, form }) {
 
 
     return (
+
         <Form
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}

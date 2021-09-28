@@ -1,0 +1,10 @@
+.filter {
+    /* height: 60vw; */
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 30%;
+    width: 500px;
+  }

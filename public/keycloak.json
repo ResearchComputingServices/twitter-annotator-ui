@@ -1,0 +1,7 @@
+{
+  "realm": "Twitter-annotator",
+  "auth-server-url": "http://localhost:8080/auth",
+  "ssl-required": "external",
+  "resource": "twitterAnnotator",
+  "public-client": true
+}

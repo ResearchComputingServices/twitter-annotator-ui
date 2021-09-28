@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import CreateBackButton from './CreateBackButton';
-import { Table, message, Switch } from 'antd'
+import Filter from './Filter';
+import { Table, message, Switch, Space } from 'antd'
 import Axios from "axios";
 
 
-function List() {
+const List =() =>{
 
     let types = ['Radio Question', 'Checkbox Question', 'Text Question']
+
     const col = [
     {
         dataIndex: "id",
@@ -15,35 +17,39 @@ function List() {
     },
 
     {
-        dataIndex: "question_number",
-        key: 'question_number',
-        title: "question#",
+        dataIndex: "date",
+        key: 'date',
+        title: "date",
         align: 'center'
     },
     {
-        dataIndex: "text",
-        key: 'text',
-        title: "text"
+        dataIndex: "hashtags",
+        key: 'hashtags',
+        title: "hashtags"
     },
-
     {
-        dataIndex: 'active',
-        key: 'active',
-        title: "active",
-        render: (active, row) => <Switch size="small" checked={active} onChange={(active) => {
-            row.active = active
-            Axios.put('/api/update_single_question_option_active_only', row).then(res => {
-                //console.log("here");
-                if (res.data === "success") {
-                    message.success('Updated Successfully!')
-                    set_update_table(pre => pre + 1)
-                } else {
-                    message.error('Update Failed!')
-                }
-            })
-        }} />
+        dataIndex: "name",
+        key: 'name',
+        title: "name"
+    },
+    {
+        dataIndex: "tweet",
+        key: 'tweet',
+        title: "tweet",
+        width: '10px',
+    },
+    {
+        dataIndex: "user_id",
+        key: 'user_id',
+        title: "user_id"
+    },
+    {
+        dataIndex: "annotated",
+        key: 'annotated',
+        title: "annotated"
     },
 
+/*
     {
         dataIndex: 'question_type',
         key: 'type',
@@ -51,7 +57,7 @@ function List() {
         align: 'center',
         render: (question_type) => <span>{types[question_type]}</span>
     }
-    /*
+    
         ,
     {
         dataIndex: "options",
@@ -63,24 +69,24 @@ function List() {
 
 
     ]
+
+
     const [data, set_data] = useState([])
     const [question, set_question] = useState([])
     const [selectedRowKeys, set_selectedRowKeys] = useState([])
     const [update_table, set_update_table] = useState(1)
+    const [api_checked, set_api_checked] = useState(false)
+
     useEffect(() => {
-        Axios.get('/api/get_all_question_option').then(res => {
+        Axios.get(api_checked ? '/api/get_all_tweets_annotated': '/api/get_all_tweets').then(res => {
+
+            let { tweets } = res.data
 
 
-            let { options, questions } = res.data
-
-            questions.forEach(d => {
-                let values = options.filter(v => v.question_type === d.id)
-                d.options = values
-            })
-            set_data(questions)
-            console.log(questions, options);
+            set_data(tweets)
+            console.log(tweets);
         })
-    }, [data.length, update_table])
+    }, [api_checked])
 
     const del_data_by_id = (id) => {
         set_data(data.filter(d => d.id !== +id))
@@ -89,11 +95,11 @@ function List() {
 
     const handle_change = (selectedRowKeys, selectedRows) => {
         set_selectedRowKeys(selectedRowKeys)
-        Axios.get(`/api/get_single_question_option?id=${selectedRowKeys[0]}`).then((res) => {
+        Axios.get(`/api/get_single_tweet?id=${selectedRowKeys[0]}`).then((res) => {
             if (res.status === 200) {
-                let { options, question } = res.data
-                question.options = options
-                set_question(question);
+                let { tweets } = res.data
+                
+                set_question(tweets);
                 console.log(question);
 
             } else {
@@ -105,6 +111,17 @@ function List() {
 
     return (
         <div>
+            <div style={{display:'flex', justifyContent: 'flex-end', marginRight: '20px'}}>
+                <span>Unannotated Tweet</span>
+                <Space>
+                <Switch style = {{marginLeft:"5px", marginRight: "5px"}} size = "small" checked={api_checked} onChange={() => set_api_checked(!api_checked)} />
+                </ Space>
+                <span>Annotated Tweet</span>
+            </div>
+            <Filter />
+            <div style={{marginBottom: "10px"}}>
+            <CreateBackButton question={question} del_data_by_id={del_data_by_id} set_update_table={set_update_table} />
+            </div>
             <Table
                 dataSource={data}
                 columns={col}
@@ -114,7 +131,7 @@ function List() {
                     showQuickJumper: true
                 }}
                 rowSelection={{
-                    type: "radio",
+                    type: "checkbox",
                     selectedRowKeys,
                     onChange: handle_change
 
@@ -125,7 +142,7 @@ function List() {
             />
 
 
-            <CreateBackButton question={question} del_data_by_id={del_data_by_id} set_update_table={set_update_table} />
+
         </div>
     )
 }

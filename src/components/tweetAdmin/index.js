@@ -4,7 +4,7 @@ import List from './List/List'
 function index() {
     return (
         <div>
-            <h1>Admin Panel</h1>
+            <h1>Tweet Admin Panel</h1>
             <List />
         </div>
     )

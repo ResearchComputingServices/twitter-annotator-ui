@@ -18,6 +18,7 @@ function CreateBackButton({ question, del_data_by_id, set_update_table }) {
                 if (res.data === 'success') {
                     message.success('Record has been deleted!')
                     set_update_table(pre => pre + 1)
+                    window.location.reload(false);
                 } else {
                     message.error('Delete  Failed!')
                 }

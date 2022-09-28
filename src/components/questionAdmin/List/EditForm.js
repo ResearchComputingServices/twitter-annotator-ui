@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Input, Select } from 'antd'
+import { Form, Input, Select, Switch } from 'antd'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -17,12 +17,26 @@ function EditForm({ question, form }) {
         }
     }
     useEffect(() => {
-        let { id, text, question_type, options } = question
+        console.log(question)
+        let { id, text, question_type, options, other,active } = question
         let types = ['radio', 'checkbox', "content"]
         if (question.addnew) {
             form.resetFields()
         } else {
-            form.setFieldsValue({ id, text, type: types[question_type], options: options.map(d => d.text) })
+            form.setFieldsValue({ id, text, type: types[question_type], options: options.map(d => d.text)})
+            if (other == true){
+                form.setFieldsValue({other:'true'})
+            } 
+            else{
+                form.setFieldsValue({other:'false'})
+            }
+            if (active == true){
+                form.setFieldsValue({active:'true'})
+            } 
+            else{
+                form.setFieldsValue({active:'false'})
+            }
+
         }
     }, [question, form, question.addnew])
 
@@ -40,12 +54,12 @@ function EditForm({ question, form }) {
                 </Form.Item>}
 
 
-            <Form.Item label="Text" name="text" key="text" rules={[{ required: true }]}>
+            <Form.Item style={{width:"100%"}} label="Text" name="text" key="text" rules={[{ required: true }]}>
                 <TextArea />
             </Form.Item>
 
 
-            <Form.Item label="active" key="active" name="active" rules={[{ required: true }]} >
+            <Form.Item label="Active" key="active" name="active" rules={[{ required: true }]} >
                 <Select>
                     <Option key="false" value="false" > false </Option>
                     <Option key="true" value="true" > true </Option>
@@ -73,7 +87,18 @@ function EditForm({ question, form }) {
                         return <Option key={d.text} value={d.text} > {d.text} </Option>
                     })}
                 </Select>
-            </Form.Item> : ""}
+                </Form.Item>
+            : ""}
+
+            {show_content ?
+            <Form.Item label="Add other option" key="other" name="other" rules={[{ required: true }]} >
+            <Select>
+                <Option key="false" value="false" > false </Option>
+                <Option key="true" value="true" > true </Option>
+            </Select>
+            </Form.Item>
+             
+            : ""}
 
 
 

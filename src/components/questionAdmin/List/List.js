@@ -37,6 +37,7 @@ function List() {
                 if (res.data === "success") {
                     message.success('Updated Successfully!')
                     set_update_table(pre => pre + 1)
+                    window.location.reload(false);
                 } else {
                     message.error('Update Failed!')
                 }
@@ -78,7 +79,6 @@ function List() {
                 d.options = values
             })
             set_data(questions)
-            console.log(questions, options);
         })
     }, [data.length, update_table])
 
@@ -94,7 +94,6 @@ function List() {
                 let { options, question } = res.data
                 question.options = options
                 set_question(question);
-                console.log(question);
 
             } else {
                 message.error("Fetch Data Failed");

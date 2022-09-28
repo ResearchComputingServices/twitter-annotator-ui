@@ -1,25 +1,31 @@
 import React from 'react'
 import TweetEmbed from 'react-tweet-embed';
-import { useState, useEffect } from 'react';
+import TwitterTweetEmbed from 'react-tweet-embed';
+import { useState, useEffect, useRef } from 'react';
+import { Typography } from 'antd';
+import { Card } from 'antd';
 
-function TweetEmbeded(set_id) {
-    const [currentId, setCurrentId] = useState(0);
-
+const { Title,Text } = Typography;
+function TweetEmbeded({currentIden,tweetText}) {
+    const tweet = useRef(null);
+    const par = useRef(null);
+    const [loaded, setLoaded] = useState(true)
+    var d;
     useEffect(() => {
-        fetch('/api/get_tweet_id').then(res => res.json()).then(data => {
-          setCurrentId(data);
-          
-        });
-      }, []);
+      const timer = setTimeout(() => {
+        tweet.current ? (tweet.current._div.childElementCount == 0 ? setLoaded(false):setLoaded(true)): setLoaded(true);
+      }, 1000);
+    }, [tweet.current]);
 
     return (
-        <div>
-          {/*
-          <TweetEmbed className="tweetembed" id={currentId} placeholder={'loading'}/>
-          */}
-          <TweetEmbed className="tweetembed" id='1437795046091329548' placeholder={'loading'}/>
+        <div ref={par}>
+          {currentIden === "0"?"":<TweetEmbed id={currentIden} ref={tweet} options={{conversation: "none" , align : 'center' }} />}
+          {loaded ? "": <div><Text type="secondary">The live version of the tweet is not currently available and a simple form of its text is shown instead:</Text></div>}
+          {loaded ? "": <Card>
+              <p>{tweetText}</p>
+            </Card>}
         </div>
-        )
+    )
 }
 
 export default TweetEmbeded

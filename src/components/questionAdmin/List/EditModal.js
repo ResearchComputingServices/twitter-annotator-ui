@@ -15,6 +15,7 @@ function EditModal({ setIsModalVisible, isModalVisible, question, set_update_tab
                     if (res.data === "success") {
                         message.success('Saved Successfully!')
                         set_update_table(pre => pre + 1)
+                        window.location.reload(false);
                     } else {
                         message.error('Save Failed!')
                     }
@@ -24,7 +25,10 @@ function EditModal({ setIsModalVisible, isModalVisible, question, set_update_tab
                 Axios.post('/api/create_single_question_option', values).then(res => {
                     if (res.data === "success") {
                         message.success('Saved Successfully!')
+                        
                         set_update_table(pre => pre + 1)
+                        window.location.reload(false);
+                        form.resetFields()
                     } else {
                         message.error('Save Failed!')
                     }
